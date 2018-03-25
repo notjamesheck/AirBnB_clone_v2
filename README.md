@@ -53,3 +53,9 @@ from the root directory.
 ## Bugs
 
 + No known bugs at this time.
+
+## Original Author
+*Steven Garcia* - [Github](https://github.com/stvngrcia)
+
+## Contributing Author
+*Henry Hsu* [Github](https://github.com/henryh28)
