@@ -19,7 +19,6 @@ class HBNBCommand(cmd.Cmd):
     '''
         Contains the entry point of the command interpreter.
     '''
-
     prompt = ("(hbnb) ")
 
     def do_quit(self, args):
@@ -39,12 +38,29 @@ class HBNBCommand(cmd.Cmd):
             Create a new instance of class BaseModel and saves it
             to the JSON file.
         '''
+
         if len(args) == 0:
             print("** class name missing **")
             return
         try:
             args = shlex.split(args)
             new_instance = eval(args[0])()
+
+            for attrib in args:  # take in params for object creation
+                if ("=" in attrib):
+                    attr_val = attrib.split("=")
+                    attr_val[1] = attr_val[1].replace("_", " ")
+
+                    if attr_val[1].isdigit():
+                        attr_val[1] = int(attr_val[1])
+                    else:
+                        try:
+                            float(attr_val[1])
+                            attr_val[1] = float(attr_val[1])
+                        except:
+                            pass
+                    setattr(new_instance, attr_val[0], attr_val[1])
+
             new_instance.save()
             print(new_instance.id)
 
