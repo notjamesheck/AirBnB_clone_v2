@@ -13,6 +13,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from os import environ
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,6 +21,10 @@ class HBNBCommand(cmd.Cmd):
         Contains the entry point of the command interpreter.
     '''
     prompt = ("(hbnb) ")
+
+    def do_test(self, args):  # testing only, remove later
+        print("========= Test ========")
+        print(environ.get("HBNB_TYPE_STORAGE"))
 
     def do_quit(self, args):
         '''
@@ -47,9 +52,11 @@ class HBNBCommand(cmd.Cmd):
             new_instance = eval(args[0])()
 
             for attrib in args:  # take in params for object creation
-                if ("=" in attrib):
+                if attrib.count("=") == 1 and attrib[
+                        0] != "=" and attrib[-1] != "=":
                     attr_val = attrib.split("=")
                     attr_val[1] = attr_val[1].replace("_", " ")
+                    attr_val[1] = attr_val[1].replace('"', "\"")
 
                     if attr_val[1].isdigit():
                         attr_val[1] = int(attr_val[1])
