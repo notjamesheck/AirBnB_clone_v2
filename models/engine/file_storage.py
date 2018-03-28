@@ -13,7 +13,24 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
+    def delete(self, obj=None):
+        '''
+        Delete obj from database if it exists
+        '''
+
+        del_flag = 0
+
+        if obj:
+            for record in self.__objects:
+                test = record.split(".")
+                if test[1] == obj.id:
+                    del_flag = record
+
+        if del_flag != 0:
+            self.__objects.pop(del_flag, None)
+            self.save()
+
+    def all(self, cls=None):
         '''
             Return the dictionary
         '''
