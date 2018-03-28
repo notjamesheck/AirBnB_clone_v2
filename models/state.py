@@ -29,7 +29,6 @@ class State(BaseModel, Base):
                     matching_cities.append(city)
 
             return (matching_cities)
-
     else:
         name = ""
 

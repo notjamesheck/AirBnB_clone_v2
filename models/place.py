@@ -25,7 +25,19 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
 
-    if environ.get("HBNB_TYPE_STORAGE") != "db":
+    if environ.get("HBNB_TYPE_STORAGE") == "db":
+        reviews = relationship("Review", cascade="all, delete-orphan",
+                              backref="place")
+
+        @property
+        def reviews(self):
+            matching_reviews = []
+            for review in self.reviews:
+                if review.place_id == self.id:
+                    matching_reviews.append(review)
+
+            return (matching_reviews)
+    else:
         city_id = ""
         user_id = ""
         name = ""
@@ -37,3 +49,4 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
