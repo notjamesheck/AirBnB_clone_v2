@@ -3,12 +3,13 @@
     This module defines the BaseModel class
 '''
 
-
 import uuid
 from datetime import datetime
 import models
-from sqlalchemy import Column, DateTime, Integer, String
+import sqlalchemy
+from sqlalchemy import Column, DateTime, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from os import environ
 
 Base = declarative_base()
 
@@ -16,11 +17,12 @@ Base = declarative_base()
 class BaseModel:
     '''
         Base class for other classes to be used for the duration.
+
     '''
 
-    id = Column(String(60), nullable=False, primary_key=True)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         '''

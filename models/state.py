@@ -3,38 +3,33 @@
     Implementation of the State class
 '''
 
-import models
-from models.base_model import BaseModel
-from sqlalchemy import Column, String
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from os import environ
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
 
-    if environ.get("HBNB_TYPE_STORAGE") == "db":
-        print("database all over the place")
-        __tablename__ = "states"
-        name = Column(String(128), nullable=False)
+    __tablename__ = "states"
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade="all, delete", backref="state")
 
-        cities = relationship("City", cascade="all, delete-orphan",
-                              backref="State")
-    else:
+    @property
+    def cities(self):
+        matching_cities = []
+
+        for city in self.cities:
+            if city.state_id == self.id:
+                matching_cities.append(city)
+
+        return (matching_cities)
+
+    if environ.get("HBNB_TYPE_STORAGE") != "db":
         name = ""
-
-        @property
-        def cities(self):
-            collection = models.storage.all("City").value()
-            matching_cities = []
-
-            for record in collection:
-                if record.id == self.id:
-                    matching_cities.append(record)
-
-            return (matching_cities)
 
 
 #Ref: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
