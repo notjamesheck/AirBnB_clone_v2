@@ -7,8 +7,9 @@ from models.base_model import BaseModel, Base
 import models
 from models.city import City
 from models.state import State
+from models.user import User
 
-class_list = [City, State]
+class_list = [City, State, User]
 
 
 class DBStorage:
@@ -35,7 +36,7 @@ class DBStorage:
 
         if cls:
             for value in self.__session.query(cls):
-                key = "{}.{}".format(value.__class__.__name__, valkue.id)
+                key = "{}.{}".format(value.__class__.__name__, value.id)
                 results[key] = value
         else:
             for a_class in class_list:
