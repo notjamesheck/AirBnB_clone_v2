@@ -8,8 +8,9 @@ import models
 from models.city import City
 from models.state import State
 from models.user import User
+from models.place import Place
 
-class_list = [City, State, User]
+class_list = [City, State, User, Place]
 
 
 class DBStorage:

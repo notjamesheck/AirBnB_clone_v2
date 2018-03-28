@@ -53,7 +53,6 @@ class HBNBCommand(cmd.Cmd):
                         0] != "=" and attrib[-1] != "=":
                     attr_val = attrib.split("=")
                     attr_val[1] = attr_val[1].replace("_", " ")
-                    # attr_val[1] = attr_val[1].replace('"', "\"")
 
                     if attr_val[1].isdigit():
                         attr_val[1] = int(attr_val[1])

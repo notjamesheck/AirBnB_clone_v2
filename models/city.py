@@ -18,7 +18,10 @@ class City(BaseModel, Base):
     name = Column(String(128), nullable=False)
     state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
 
-    if environ.get("HBNH_TYPE_STORAGE") != "db":
+    if environ.get("HBNB_TYPE_STORAGE") == "db":
+        places = relationship("Place", cascade="all, delete-orphan",
+                              backref="cities")
+    else:
         state_id = ""
         name = ""
 
