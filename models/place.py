@@ -3,9 +3,16 @@
     Define the class Place.
 '''
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, Float
+from sqlalchemy import Column, String, Integer, ForeignKey, DateTime, \
+    Float, Table
 from sqlalchemy.orm import relationship
 from os import environ
+
+place_amenity = Table("place_amenity", Base.metadata,
+                      Column("place_id", String(60),
+                             ForeignKey("places.id"), nullable=False),
+                      Column("amenity_id", String(60),
+                             ForeignKey("amenities.id"), nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -27,7 +34,9 @@ class Place(BaseModel, Base):
 
     if environ.get("HBNB_TYPE_STORAGE") == "db":
         reviews = relationship("Review", cascade="all, delete-orphan",
-                              backref="place")
+                               backref="place")
+        amenities = relationship("Amenity", secondary="place_amenity",
+                                 viewonly=False)
 
         @property
         def reviews(self):
@@ -50,3 +59,12 @@ class Place(BaseModel, Base):
         longitude = 0.0
         amenity_ids = []
 
+        @property
+        def amenities(self):
+            return (self.amenity_ids)
+
+        @amenities.setter
+        def amenities(self, obj):
+            if self.id == amenities.place_id and \
+               obj.__class__.__name__ == "Amenity":
+                amenity_ids.append(obj)

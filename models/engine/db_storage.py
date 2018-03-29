@@ -10,8 +10,9 @@ from models.state import State
 from models.user import User
 from models.place import Place
 from models.review import Review
+from models.amenity import Amenity
 
-class_list = [City, State, User, Place, Review]
+class_list = [City, State, User, Place, Review, Amenity]
 
 
 class DBStorage:
