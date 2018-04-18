@@ -22,7 +22,7 @@ def web_flask():
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
     text.replace(" ", "_")
-    return 'C {}'.format(text)
+    return 'C %s' % text
 
 
 if __name__ == '__main__':
