@@ -25,6 +25,7 @@ def c_route(text):
     return 'C %s' % text
 
 
+@app.route("/python/", strict_slashes=False)
 @app.route('/python/(<text>)', strict_slashes=False)
 def python_route(text=None):
     if text is None:
