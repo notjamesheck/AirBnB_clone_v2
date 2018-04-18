@@ -10,8 +10,13 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_world():
+def hello_route():
     return 'Hello HBNB!'
+
+
+@app.route('/hbnb', strict_slashes=False)
+def web_flask():
+    return 'HBNB'
 
 
 if __name__ == '__main__':
