@@ -22,7 +22,7 @@ def web_flask():
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
     text.replace(" ", "_")
-    return 'C %s' % text
+    return 'C {}'.format(text)
 
 
 @app.route('/python/(<text>)', strict_slashes=False)
@@ -30,7 +30,7 @@ def python_route(text=None):
     if text is None:
         text = 'is cool'
     text.replace(" ", "_")
-    return 'Python %s' % text
+    return 'Python {}'.format(text)
 
 
 if __name__ == '__main__':
