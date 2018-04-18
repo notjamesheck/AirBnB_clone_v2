@@ -21,16 +21,16 @@ def web_flask():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
-    text.replace(" ", "_")
-    return 'C {}'.format(text)
+    text = text.replace("_", " ")
+    return 'C %s' % text
 
 
 @app.route('/python/(<text>)', strict_slashes=False)
 def python_route(text=None):
     if text is None:
         text = 'is cool'
-    text.replace(" ", "_")
-    return 'Python {}'.format(text)
+    text = text.replace("_", " ")
+    return 'Python %s' % text
 
 
 if __name__ == '__main__':
