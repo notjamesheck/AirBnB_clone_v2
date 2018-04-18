@@ -20,7 +20,7 @@ def web_flask():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_route():
+def c_route(text):
     text.replace(" ", "_")
     return 'C %s' % text
 
