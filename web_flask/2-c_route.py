@@ -14,15 +14,15 @@ def hello_route():
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route('/hbnb', strict_slas_es=False)
 def web_flask():
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
-    text.replace("_", " ")
-    return 'C %s' % text
+    text.replace(" ", "_")
+    return 'C {}'.format(text)
 
 
 if __name__ == '__main__':
