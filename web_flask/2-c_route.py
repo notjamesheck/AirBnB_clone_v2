@@ -14,7 +14,7 @@ def hello_route():
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slas_es=False)
+@app.route('/hbnb', strict_slashes=False)
 def web_flask():
     return 'HBNB'
 
