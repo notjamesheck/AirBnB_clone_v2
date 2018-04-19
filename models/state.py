@@ -32,4 +32,13 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-#Ref: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
+        @property
+        def cities(self):
+            matching_cities = []
+            for city in models.storage.all('City').values():
+                if city.state_id == self.id:
+                    matching_cities.append(city)
+
+            return (matching_cities)
+
+# Ref: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
