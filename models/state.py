@@ -8,7 +8,7 @@ from models.city import City
 from models import city
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from os import environ
+from os import getenv
 
 
 class State(BaseModel, Base):
@@ -19,7 +19,7 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
 
-    if environ.get("HBNB_TYPE_STORAGE") == "db":
+    if getenv("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City", cascade="all, delete-orphan",
                               backref="state")
 
