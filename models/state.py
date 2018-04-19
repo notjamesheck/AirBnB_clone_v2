@@ -2,8 +2,9 @@
 '''
     Implementation of the State class
 '''
-
+import models
 from models.base_model import BaseModel, Base
+from models.city import City
 from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from os import environ
@@ -13,18 +14,14 @@ class State(BaseModel, Base):
     '''
         Implementation for the State.
     '''
-    '''
+
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
-    '''
 
     if environ.get("HBNB_TYPE_STORAGE") == "db":
-        __tablename__ = "states"
-        name = Column(String(128), nullable=False)
         cities = relationship("City", cascade="all, delete-orphan",
                               backref="state")
 
-    '''
         @property
         def cities(self):
             matching_cities = []
@@ -33,7 +30,7 @@ class State(BaseModel, Base):
                     matching_cities.append(city)
 
             return (matching_cities)
-    '''
+
     else:
         name = ""
 
