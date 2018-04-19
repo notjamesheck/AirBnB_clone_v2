@@ -38,7 +38,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             matching_cities = []
-            for state, city in models.storage.all(City).items():
+            for city in models.storage.all(City).items():
                 if city.state_id == self.id:
                     matching_cities.append(city)
 
