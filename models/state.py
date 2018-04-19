@@ -21,6 +21,7 @@ class State(BaseModel, Base):
     if environ.get("HBNB_TYPE_STORAGE") == "db":
         cities = relationship("City", cascade="all, delete-orphan",
                               backref="state")
+
         '''
         @property
         def cities(self):
@@ -38,10 +39,11 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             matching_cities = []
-            for city in models.storage.all(City).items():
-                if city.state_id == self.id:
+            cities = models.storage.all(City)
+            for city, info in cities.items():
+                if info.state_id == self.id:
                     matching_cities.append(city)
 
-            return (matching_cities)
+            return matching_cities
 
 # Ref: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
