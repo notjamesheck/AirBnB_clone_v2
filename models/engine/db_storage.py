@@ -67,3 +67,6 @@ class DBStorage:
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         scoped = scoped_session(Session)
         self.__session = scoped()
+
+    def close(self):
+        self.__session.remove()
