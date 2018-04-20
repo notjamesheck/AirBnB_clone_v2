@@ -14,6 +14,11 @@ from models.amenity import Amenity
 
 class_list = [City, State, User, Place, Review, Amenity]
 
+classes = {"User": User, "BaseModel": BaseModel,
+           "Place": Place, "State": State,
+           "City": City, "Amenity": Amenity,
+           "Review": Review}
+
 
 class DBStorage:
     """ Defines database storage """
@@ -37,17 +42,19 @@ class DBStorage:
         """ Queries all objects in current DB session against cls """
         results = {}
 
-        if cls:
-            for value in self.__session.query(cls):
-                key = "{}.{}".format(value.__class__.__name__, value.id)
-                results[key] = value
-        else:
-            for a_class in class_list:
-                for value in self.__session.query(a_class):
+        for key, val in classes.items():
+            if cls == key:
+                for value in self.__session.query(classes[key]):
                     key = "{}.{}".format(value.__class__.__name__, value.id)
                     results[key] = value
+            else:
+                for a_class in class_list:
+                    for value in self.__session.query(a_class):
+                        key = "{}.{}".format(value.__class__.__name__,
+                                             value.id)
+                        results[key] = value
 
-        return (results)
+            return (results)
 
     def new(self, obj):
         """ Add the object to the current database session """
