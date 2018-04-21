@@ -45,12 +45,12 @@ class DBStorage:
         for key, val in classes.items():
             if cls == key:
                 for value in self.__session.query(classes[key]):
-                    key = "{}.{}".format(value().__class__.__name__, value.id)
+                    key = "{}.{}".format(value.__class__.__name__, value.id)
                     results[key] = value
             else:
                 for a_class in class_list:
                     for value in self.__session.query(a_class):
-                        key = "{}.{}".format(value().__class__.__name__,
+                        key = "{}.{}".format(value.__class__.__name__,
                                              value.id)
                         results[key] = value
 

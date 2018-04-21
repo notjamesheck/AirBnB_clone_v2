@@ -34,7 +34,14 @@ class FileStorage:
         '''
             Return the dictionary
         '''
-        return self.__objects
+        if cls is None:
+            return self.__objects
+        else:
+            matches = {}
+            for key, obj in self.__object.items():
+                if type(obj) is cls:
+                    matches[key] = obj
+            return matches
 
     def new(self, obj):
         '''
