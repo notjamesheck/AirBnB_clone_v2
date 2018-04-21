@@ -45,7 +45,7 @@ class State(BaseModel, Base):
             cities = models.storage.all(City)
             for city, info in cities.items():
                 if info.state_id == self.id:
-                    matching_cities.append(city)
+                    matching_cities.append(info)
 
             return matching_cities
 
